@@ -2,17 +2,17 @@
 
 ***Keep in mind that the code you write is not only read by youself.***
 
-
 Basically, the code style is based on Sony's style.  
 
 For example:
+
 1. Use lower camel case for `variable` and `function` name.  
    like: `uint8_t shaderModifier;`, `void generateVsFetchShader();`
 
 2. Use upper camel case for `class`, `enum` and `struct` name.  
    like: `class ConstantUpdateEngine;`, `enum PsslType;`, `struct VsStageRegisters;`
 
-3. Use `m_` prefix for class member variable,   
+3. Use `m_` prefix for class member variable,
    like: `void* m_cmdptr`  
 
    Use `g_` prefix for global variable,  
@@ -23,18 +23,19 @@ For example:
 
 5. Start left brace `{` in new line, not at the end of current line.  
    like:
-   ```
+
+      .markdownlint.json
    if (shaderResourceOffset != 0)
    {
-       doSomething();
-   }
-   ```
+       doSomething; (""),
+   }  .markdownlint.json,
 
 ---
 
 And based on the above Sony's style, we add the following extra rules, to make our code more clean and easy to maintain.
 
-## Rules must be followed:
+## Rules must be followed
+
 1. One function, one `return`.
 
 2. Use `do {} while(false)` pattern in functions that are complex and/or going to be complex.  
@@ -46,6 +47,7 @@ And based on the above Sony's style, we add the following extra rules, to make o
    3. It also helps people to figure out the most important part of a function, this is called *Guard Clauses*. Once you are used to it, you know what appears at the begining of a functions is just some bad condition checks which is less important, saving time again.
 
     For examp;e:
+
     ```
     bool ModuleLoader::loadModule(std::string const &fileName, MemoryMappedModule **modOut)
     {
@@ -88,11 +90,12 @@ And based on the above Sony's style, we add the following extra rules, to make o
 3. Do not write code nested more than 3 layers (`do{} while(false);` not included). Write nested statement as few as possible.  
 
    You can use `break` or `continue` to cancel nested code, or write a new function if necessary.
-   
+
    For example:  
 
    ---
    Recommended:
+
    ```
    if (!isFileExist(fileName))
    {
@@ -104,9 +107,11 @@ And based on the above Sony's style, we add the following extra rules, to make o
    }
    auto result = processFile(fileName);
    ```
+
    Discouraged:
+
    ```
-   if (isFileExist(fileName))
+   if    (".markdownlint.json"),
    {
       if (!isFileBroken(fileName))
       {
@@ -114,8 +119,10 @@ And based on the above Sony's style, we add the following extra rules, to make o
       }
    }
    ```
+
    ---
    Recommended:
+
    ```
     for (int i = 0; i != count; ++i)
     {
@@ -132,7 +139,9 @@ And based on the above Sony's style, we add the following extra rules, to make o
         processItem(&item[i]);
     }
    ```
+
    Discouraged:
+
    ```
     for (int i = 0; i != count; ++i)
     {
@@ -145,8 +154,10 @@ And based on the above Sony's style, we add the following extra rules, to make o
         }
     }
    ```
+
    ---
    Recommended:
+
    ```
     void processOneItem(Item* item);
 
@@ -155,7 +166,9 @@ And based on the above Sony's style, we add the following extra rules, to make o
         processOneItem(&item[i]);
     }
    ```
+
    Discouraged:
+
    ```
     for (int i = 0; i != count; ++i)
     {
@@ -168,6 +181,7 @@ And based on the above Sony's style, we add the following extra rules, to make o
         }
     }
    ```
+
 4. Do not write a function longer than your sceen's height. Typically 50-80 lines at most.  
    Some table type functions not included, like a big `switch` statement.
 
@@ -181,8 +195,7 @@ And based on the above Sony's style, we add the following extra rules, to make o
 
 9. Do not use C++ exception.
 
-
-## Rules recommended:
+## Rules recommended
 
 1. Design first in your mind, then coding.  
    It's better to make a high level design first in your mind and then coding,  
@@ -204,8 +217,6 @@ And based on the above Sony's style, we add the following extra rules, to make o
    If you can use a class member, don't make it global. And so on.
 
 6. Include only required. Use forward declaration to resolve include dependencies.
-
-
 
 PS1: Third party library code is not limited by the above rules.  
 PS2: Forget about some old Hungarian notation style code, I'll fix that once I have time.
